@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop – SBS LABS</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* --- Product Grid & Cards --- */
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2em;
+      padding: 2em;
+    }
+
+    .product-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 220px;
+      padding: 1.2em;
+      text-align: center;
+      background: #fff;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .product-card img {
+      width: 90px;
+      height: auto;
+      object-fit: contain;
+      margin-bottom: 1em;
+      border-radius: 4px;
+    }
+
+    .product-card h3 {
+      font-size: 1.1em;
+      margin: 0.6em 0 0.2em;
+      color: #0a1a2f;
+    }
+
+    .product-card p {
+      font-size: 0.95em;
+      color: #333;
+      margin: 0.3em 0;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #0a1a2f;
+      margin-top: 0.5em;
+    }
+
+    .button {
+      padding: 0.8em 1.6em;
+      background: #0a1a2f;
+      color: white;
+      font-weight: 600;
+      border-radius: 6px;
+      transition: background 0.3s;
+      display: inline-block;
+      margin-top: 0.8em;
+      cursor: pointer;
+      border: none;
+    }
+
+    .button:hover {
+      background: #003366;
+    }
+
+    .qty-input {
+      width: 60px;
+      padding: 0.4em;
+      margin: 0.5em 0;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .section-header {
+      text-align: center;
+      font-size: 2em;
+      margin-top: 1.5em;
+      color: #0a1a2f;
+    }
+
+    footer {
+      background: #0a1a2f;
+      color: white;
+      padding: 2em;
+      text-align: center;
+      margin-top: 3em;
+    }
+
+    .snackbar {
+      display: none;
+      position: fixed;
+      bottom: 2em;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0a1a2f;
+      color: white;
+      padding: 1em 2em;
+      border-radius: 5px;
+      z-index: 2000;
+    }
+
+    /* --- Modal Overlay & Content --- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1500;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 2em;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .modal-content img {
+      width: 120px;
+      height: auto;
+      margin-bottom: 1em;
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+      color: #0a1a2f;
+    }
+
+    .modal-content p {
+      font-size: 1em;
+      color: #333;
+      margin: 0.5em 0;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 0.6em;
+      right: 1em;
+      font-size: 1.5em;
+      cursor: pointer;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== PERSISTENT HEADER / NAVBAR ===== -->
+  <header>
+    <h1>SBS LABS</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+    </nav>
+  </header>
+
+  <h2 class="section-header">Our Research Peptides</h2>
+
+  <section class="products">
+    <!-- Example PRODUCT CARD with data attributes for modal -->
+    <div class="product-card" data-name="Tirzepatide 10mg"
+         data-price="55.00"
+         data-img="https://i.imgur.com/Hgzs2M2.jpeg"
+         data-desc="High‑purity 10 mg peptide for research use only. 99% purity guaranteed.">
+      <img src="https://i.imgur.com/Hgzs2M2.jpeg" alt="Tirzepatide">
+      <h3>Tirzepatide 10mg</h3>
+      <p class="price">$55.00</p>
+      <button class="button quick-view-btn">Quick View</button>
+    </div>
+
+    <div class="product-card" data-name="NAD+ 100mg"
+         data-price="49.99"
+         data-img="https://i.imgur.com/ejyxJlj.jpeg"
+         data-desc="Research‑grade NAD+ 100 mg. High‑purity, lab‑ready compound.">
+      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="NAD+">
+      <h3>NAD+ 100mg</h3>
+      <p class="price">$49.99</p>
+      <button class="button quick‑view-btn">Quick View</button>
+    </div>
+
+    <!-- Add more product-card blocks here — just update data-* attributes -->
+  </section>
+
+  <!-- ===== Reusable Modal ===== -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal-content">
+      <span class="modal-close" id="modalClose">&times;</span>
+      <img id="modal-img" src="" alt="Product Image">
+      <h3 id="modal-name">Product Name</h3>
+      <p id="modal-desc">Detailed product description goes here.</p>
+      <p class="price" id="modal-price">$0.00</p>
+      <input type="number" id="modal-qty" value="1" min="1" class="qty-input">
+      <button class="button" id="modal-add">Add to Cart</button>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 SBS LABS • Research Use Only • Not for Human Consumption
+  </footer>
+
+  <div id="snackbar" class="snackbar">Added to cart</div>
+
+  <script>
+    // Cart utility
+    function getCart() {
+      return JSON.parse(localStorage.getItem('sbsCart') || '{}');
+    }
+    function saveCart(cart) {
+      localStorage.setItem('sbsCart', JSON.stringify(cart));
+    }
+    function updateCartCount() {
+      const cart = getCart();
+      const count = Object.values(cart).reduce((a, b) => a + b.qty, 0);
+      document.getElementById('cart-count').innerText = count;
+    }
+
+    // Modal and Quick View logic
+    const modal = document.getElementById('productModal');
+    const modalImg = document.getElementById('modal-img');
+    const modalName = document.getElementById('modal-name');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalPrice = document.getElementById('modal-price');
+    const modalQty = document.getElementById('modal-qty');
+    const modalAdd = document.getElementById('modal-add');
+    const modalClose = document.getElementById('modalClose');
+
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.querySelector('.quick-view-btn').addEventListener('click', () => {
+        const name = card.getAttribute('data-name');
+        const price = card.getAttribute('data-price');
+        const img = card.getAttribute('data-img');
+        const desc = card.getAttribute('data-desc');
+
+        modalImg.src = img;
+        modalImg.alt = name;
+        modalName.innerText = name;
+        modalDesc.innerText = desc;
+        modalPrice.innerText = `$${price}`;
+        modalQty.value = 1;
+
+        modalAdd.onclick = function() {
+          addToCart(name, parseFloat(price), 'modal-qty');
+        };
+
+        modal.style.display = 'flex';
+      });
+    });
+
+    modalClose.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    function addToCart(name, price, qtyInputId) {
+      const qty = parseInt(document.getElementById(qtyInputId).value) || 1;
+      const cart = getCart();
+      if (cart[name]) {
+        cart[name].qty += qty;
+      } else {
+        cart[name] = { qty: qty, price };
+      }
+      saveCart(cart);
+      updateCartCount();
+      const sb = document.getElementById('snackbar');
+      sb.innerText = `${qty} × ${name} added to cart`;
+      sb.style.display = 'block';
+      setTimeout(() => sb.style.display = 'none', 2000);
+      modal.style.display = 'none';
+    }
+
+    // Initialize cart count
+    updateCartCount();
+  </script>
+</body>
+</html>

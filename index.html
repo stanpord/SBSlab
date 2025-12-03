@@ -1,329 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Shop – SBS LABS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <title>SBS LABS – Home</title>
   <style>
     body {
-      font-family: 'Inter', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #fff;
-      color: #111;
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
     }
+
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2em 2em;
+      padding: 1.5em 2em;
       background: #fff;
       box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
     }
+
     header h1 {
-      font-size: 1.5em;
+      font-size: 1.6em;
       color: #0a1a2f;
-      font-weight: 700;
+      margin: 0;
     }
+
     nav a {
-      margin-left: 1.5em;
+      margin-left: 2em;
+      color: #111;
       text-decoration: none;
-      color: #000;
       font-weight: 500;
     }
+
     nav a:hover {
       color: #007bff;
     }
 
-    h2.section-header {
+    .hero {
+      background: linear-gradient(to right, #062e5c, #0a1a2f);
+      color: white;
+      padding: 4em 2em;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 2.8em;
+      font-weight: 700;
+      margin-bottom: 0.3em;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      color: #e0e0e0;
+      margin-bottom: 1.5em;
+    }
+
+    .hero-buttons a {
+      padding: 0.8em 1.6em;
+      margin: 0 0.5em;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .primary-btn {
+      background: #ffffff;
+      color: #0a1a2f;
+    }
+
+    .secondary-btn {
+      border: 2px solid white;
+      color: white;
+      background: transparent;
+    }
+
+    .section-header {
       text-align: center;
       font-size: 2em;
-      margin: 2em 0 1em;
+      margin-top: 2em;
       color: #0a1a2f;
     }
 
     .products {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
+      flex-wrap: wrap;
       gap: 2em;
       padding: 2em;
     }
 
     .product-card {
-      border: 1px solid #ccc;
+      background: white;
       border-radius: 8px;
-      width: 200px;
-      padding: 1em;
+      width: 220px;
+      padding: 1.2em;
       text-align: center;
-      background: #fff;
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      transition: transform 0.2s;
     }
 
     .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      transform: translateY(-5px);
     }
 
     .product-card img {
-      width: 90px;
+      width: 100px;
       height: auto;
-      object-fit: contain;
       margin-bottom: 1em;
-      border-radius: 4px;
     }
 
     .product-card h3 {
-      font-size: 1.05em;
-      margin: 0.5em 0 0.2em;
+      font-size: 1.1em;
+      margin: 0.5em 0;
       color: #0a1a2f;
     }
 
     .product-card p {
-      font-size: 0.9em;
-      margin: 0.3em 0;
-      color: #333;
+      margin: 0.2em 0;
+      color: #444;
     }
 
     .price {
       font-weight: bold;
-      margin-top: 0.5em;
       color: #0a1a2f;
+      margin-top: 0.5em;
     }
 
-    .button {
+    .quick-view {
+      margin-top: 0.8em;
+      padding: 0.6em 1.2em;
+      background: #f1f1f1;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .quick-view:hover {
+      background: #e6e6e6;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2em;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-content img {
+      width: 100px;
+      margin-bottom: 1em;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 0.6em;
+      right: 1em;
+      font-size: 1.5em;
+      cursor: pointer;
+      color: #888;
+    }
+
+    .qty-input {
+      width: 50px;
+      padding: 0.3em;
+      text-align: center;
+      margin-top: 1em;
+    }
+
+    .modal-footer button {
+      margin-top: 1em;
+      padding: 0.6em 1.2em;
       background: #0a1a2f;
       color: white;
-      padding: 0.6em 1.2em;
       border: none;
       border-radius: 5px;
-      font-weight: 600;
-      margin-top: 1em;
+      font-weight: bold;
       cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .button:hover {
-      background: #003366;
     }
 
     footer {
+      text-align: center;
+      padding: 2em;
       background: #0a1a2f;
       color: white;
-      text-align: center;
-      padding: 2em 1em;
-      font-size: 0.95em;
-      margin-top: 2em;
+      margin-top: 4em;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>SBS LABS</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="products.html">Shop</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="cart.html">Cart</a>
-    </nav>
-  </header>
+<header>
+  <h1>SBS LABS</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="cart.html">Cart (0)</a>
+  </nav>
+</header>
 
-  <h2 class="section-header">Our Research Peptides</h2>
+<section class="hero">
+  <h2>ORDER RESEARCH PEPTIDES</h2>
+  <p>High-purity compounds for scientific research. Fast, secure, and discreet.</p>
+  <div class="hero-buttons">
+    <a class="primary-btn" href="products.html">VIEW PRODUCTS</a>
+    <a class="secondary-btn" href="about.html">LEARN MORE</a>
+  </div>
+</section>
 
-  <section class="products">
+<h2 class="section-header">Top Research Products</h2>
+<section class="products">
+  <div class="product-card" data-name="Tirzepatide 10mg" data-price="55.00" data-img="https://i.imgur.com/Hgzs2M2.jpeg" data-desc="High-purity 10mg peptide for research use only.">
+    <img src="https://i.imgur.com/Hgzs2M2.jpeg" alt="Tirzepatide">
+    <h3>Tirzepatide 10mg</h3>
+    <p>99% Purity • Research Use Only</p>
+    <p class="price">$55.00</p>
+    <button class="quick-view">Quick View</button>
+  </div>
 
-    <!-- Product 1 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 1">
-      <h3>Peptide 1</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$50.00</p>
-      <a class="button" href="product1.html">View Product</a>
+  <div class="product-card" data-name="NAD+ 100mg" data-price="49.99" data-img="https://i.imgur.com/ejyxJlj.jpeg" data-desc="Research-grade NAD+ 100mg. High-purity, lab-ready compound.">
+    <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="NAD+">
+    <h3>NAD+ 100mg</h3>
+    <p>99% Purity • Research Use Only</p>
+    <p class="price">$49.99</p>
+    <button class="quick-view">Quick View</button>
+  </div>
+
+  <div class="product-card" data-name="BPC-157 5mg" data-price="39.00" data-img="https://i.imgur.com/LhDxZoX.jpeg" data-desc="BPC-157 peptide 5mg for research-grade applications.">
+    <img src="https://i.imgur.com/LhDxZoX.jpeg" alt="BPC-157">
+    <h3>BPC-157 5mg</h3>
+    <p>99% Purity • For Lab Use</p>
+    <p class="price">$39.00</p>
+    <button class="quick-view">Quick View</button>
+  </div>
+
+  <div class="product-card" data-name="Semaglutide 2mg" data-price="75.00" data-img="https://i.imgur.com/1dsOkZa.jpeg" data-desc="Semaglutide 2mg • Research Purposes Only.">
+    <img src="https://i.imgur.com/1dsOkZa.jpeg" alt="Semaglutide">
+    <h3>Semaglutide 2mg</h3>
+    <p>99% Purity • Scientific Use Only</p>
+    <p class="price">$75.00</p>
+    <button class="quick-view">Quick View</button>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <img id="modal-img" src="" alt="">
+    <h3 id="modal-title"></h3>
+    <p id="modal-desc"></p>
+    <p class="price" id="modal-price"></p>
+    <input type="number" class="qty-input" value="1" min="1">
+    <div class="modal-footer">
+      <button onclick="alert('Added to cart (demo only)')">Add to Cart</button>
     </div>
+  </div>
+</div>
 
-    <!-- Product 2 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 2">
-      <h3>Peptide 2</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$52.00</p>
-      <a class="button" href="product2.html">View Product</a>
-    </div>
+<footer>
+  © 2025 SBS LABS • Research Use Only • Not for Human Consumption
+</footer>
 
-    <!-- Product 3 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 3">
-      <h3>Peptide 3</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$54.00</p>
-      <a class="button" href="product3.html">View Product</a>
-    </div>
+<script>
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDesc = document.getElementById('modal-desc');
+  const modalPrice = document.getElementById('modal-price');
 
-    <!-- Product 4 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 4">
-      <h3>Peptide 4</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$55.00</p>
-      <a class="button" href="product4.html">View Product</a>
-    </div>
+  document.querySelectorAll('.quick-view').forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.product-card');
+      modalTitle.textContent = card.dataset.name;
+      modalPrice.textContent = `$${card.dataset.price}`;
+      modalDesc.textContent = card.dataset.desc;
+      modalImg.src = card.dataset.img;
+      modal.style.display = 'flex';
+    });
+  });
 
-    <!-- Product 5 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 5">
-      <h3>Peptide 5</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$56.00</p>
-      <a class="button" href="product5.html">View Product</a>
-    </div>
+  function closeModal() {
+    modal.style.display = 'none';
+  }
 
-    <!-- Product 6 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 6">
-      <h3>Peptide 6</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$57.00</p>
-      <a class="button" href="product6.html">View Product</a>
-    </div>
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+</script>
 
-    <!-- Product 7 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 7">
-      <h3>Peptide 7</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$58.00</p>
-      <a class="button" href="product7.html">View Product</a>
-    </div>
-
-    <!-- Product 8 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 8">
-      <h3>Peptide 8</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$59.00</p>
-      <a class="button" href="product8.html">View Product</a>
-    </div>
-
-    <!-- Product 9 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 9">
-      <h3>Peptide 9</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$60.00</p>
-      <a class="button" href="product9.html">View Product</a>
-    </div>
-
-    <!-- Product 10 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 10">
-      <h3>Peptide 10</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$61.00</p>
-      <a class="button" href="product10.html">View Product</a>
-    </div>
-
-    <!-- Product 11 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 11">
-      <h3>Peptide 11</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$62.00</p>
-      <a class="button" href="product11.html">View Product</a>
-    </div>
-
-    <!-- Product 12 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 12">
-      <h3>Peptide 12</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$63.00</p>
-      <a class="button" href="product12.html">View Product</a>
-    </div>
-
-    <!-- Product 13 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 13">
-      <h3>Peptide 13</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$64.00</p>
-      <a class="button" href="product13.html">View Product</a>
-    </div>
-
-    <!-- Product 14 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 14">
-      <h3>Peptide 14</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$65.00</p>
-      <a class="button" href="product14.html">View Product</a>
-    </div>
-
-    <!-- Product 15 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 15">
-      <h3>Peptide 15</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$66.00</p>
-      <a class="button" href="product15.html">View Product</a>
-    </div>
-
-    <!-- Product 16 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 16">
-      <h3>Peptide 16</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$67.00</p>
-      <a class="button" href="product16.html">View Product</a>
-    </div>
-
-    <!-- Product 17 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 17">
-      <h3>Peptide 17</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$68.00</p>
-      <a class="button" href="product17.html">View Product</a>
-    </div>
-
-    <!-- Product 18 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 18">
-      <h3>Peptide 18</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$69.00</p>
-      <a class="button" href="product18.html">View Product</a>
-    </div>
-
-    <!-- Product 19 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 19">
-      <h3>Peptide 19</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$70.00</p>
-      <a class="button" href="product19.html">View Product</a>
-    </div>
-
-    <!-- Product 20 -->
-    <div class="product-card">
-      <img src="https://i.imgur.com/ejyxJlj.jpeg" alt="Product 20">
-      <h3>Peptide 20</h3>
-      <p>99% Purity • Research Use Only</p>
-      <p class="price">$71.00</p>
-      <a class="button" href="product20.html">View Product</a>
-    </div>
-
-  </section>
-
-  <footer>
-    © 2025 SBS LABS • Research Use Only • Not for Human Consumption
-  </footer>
 </body>
 </html>
 
